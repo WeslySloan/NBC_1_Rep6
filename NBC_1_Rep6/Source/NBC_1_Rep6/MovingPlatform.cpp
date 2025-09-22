@@ -2,26 +2,67 @@
 
 
 #include "MovingPlatform.h"
+#include "Components/StaticMeshComponent.h"
 
-// Sets default values
 AMovingPlatform::AMovingPlatform()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+    PrimaryActorTick.bCanEverTick = true;
 
+    PlatformMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PlatformMesh"));
+    RootComponent = PlatformMesh;
+
+    MoveSpeed = 200.f;
+    MaxRange = 500.f;
+    MoveAxis = FVector(1, 0, 0); // X축 방향
+    bUseLocalSpace = true;
+    bStartMovingForward = true;
+    bMovingForward = bStartMovingForward;
 }
 
-// Called when the game starts or when spawned
 void AMovingPlatform::BeginPlay()
 {
-	Super::BeginPlay();
-	
+    Super::BeginPlay();
+
+    StartLocation = GetActorLocation();
+    bMovingForward = bStartMovingForward;
+
+    if (bUseLocalSpace)
+    {
+        MoveAxis = GetActorForwardVector();
+    }
+    else
+    {
+        MoveAxis = MoveAxis.GetSafeNormal();
+    }
 }
 
-// Called every frame
 void AMovingPlatform::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
+    Super::Tick(DeltaTime);
 
+    if (MoveSpeed <= 0.f || MaxRange <= 0.f || MoveAxis.IsNearlyZero()) return;
+
+    FVector AxisNorm = MoveAxis.GetSafeNormal();
+    FVector Direction = bMovingForward ? AxisNorm : -AxisNorm;
+    FVector DeltaMove = Direction * MoveSpeed * DeltaTime;
+    FVector NewLocation = GetActorLocation() + DeltaMove;
+
+    float Traveled = FVector::DotProduct(NewLocation - StartLocation, AxisNorm);
+
+    if (Traveled > MaxRange)
+    {
+        float Over = Traveled - MaxRange;
+        NewLocation -= AxisNorm * Over;
+        bMovingForward = false;
+    }
+    else if (Traveled < 0.f)
+    {
+        // 시작점 뒤로 넘어간 경우(음수)
+        float Over = -Traveled;
+        NewLocation += AxisNorm * Over;
+        bMovingForward = true;
+    }
+
+    SetActorLocation(NewLocation);
 }
 

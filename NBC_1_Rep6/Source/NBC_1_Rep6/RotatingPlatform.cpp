@@ -2,13 +2,20 @@
 
 
 #include "RotatingPlatform.h"
+#include "Components/StaticMeshComponent.h"
 
 // Sets default values
 ARotatingPlatform::ARotatingPlatform()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+    PrimaryActorTick.bCanEverTick = true;
 
+    PlatformMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PlatformMesh"));
+    RootComponent = PlatformMesh;
+
+    // ±âº» °ª
+    RotationSpeed = 90.f;
+    RotationAxis = FVector::UpVector; 
+    bRotateLocal = true;
 }
 
 // Called when the game starts or when spawned
@@ -21,7 +28,24 @@ void ARotatingPlatform::BeginPlay()
 // Called every frame
 void ARotatingPlatform::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
+    Super::Tick(DeltaTime);
 
+    if (RotationAxis.IsNearlyZero() || FMath::IsNearlyZero(RotationSpeed))
+    {
+        return;
+    }
+
+    FVector Axis = RotationAxis.GetSafeNormal();
+    const float AngleRad = FMath::DegreesToRadians(RotationSpeed * DeltaTime);
+    const FQuat DeltaQuat(Axis, AngleRad);
+
+    if (bRotateLocal)
+    {
+        AddActorLocalRotation(FRotator(DeltaQuat));
+    }
+    else
+    {
+        AddActorWorldRotation(FRotator(DeltaQuat));
+    }
 }
 

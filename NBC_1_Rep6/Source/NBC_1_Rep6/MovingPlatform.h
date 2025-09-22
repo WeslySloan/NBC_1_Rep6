@@ -9,18 +9,40 @@
 UCLASS()
 class NBC_1_REP6_API AMovingPlatform : public AActor
 {
-	GENERATED_BODY()
-	
-public:	
-	// Sets default values for this actor's properties
-	AMovingPlatform();
+    GENERATED_BODY()
+
+public:
+    AMovingPlatform();
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+    virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+public:
+    virtual void Tick(float DeltaTime) override;
 
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+    UStaticMeshComponent* PlatformMesh;
+
+    // 이동 속도 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platform Settings", meta = (ClampMin = "0.0"))
+    float MoveSpeed;
+
+    // 시작 위치로부터 최대 거리
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platform Settings", meta = (ClampMin = "0.0"))
+    float MaxRange;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platform Settings")
+    FVector MoveAxis;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Platform Settings")
+    FVector StartLocation;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platform Settings")
+    bool bUseLocalSpace;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platform Settings")
+    bool bStartMovingForward;
+
+private:
+    bool bMovingForward;
 };

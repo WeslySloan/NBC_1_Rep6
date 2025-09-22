@@ -9,18 +9,28 @@
 UCLASS()
 class NBC_1_REP6_API ARotatingPlatform : public AActor
 {
-	GENERATED_BODY()
-	
-public:	
-	// Sets default values for this actor's properties
-	ARotatingPlatform();
+    GENERATED_BODY()
+
+public:
+    ARotatingPlatform();
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+    virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+public:
+    virtual void Tick(float DeltaTime) override;
 
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+    UStaticMeshComponent* PlatformMesh;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platform Settings", meta = (ClampMin = "0.0"))
+    float RotationSpeed;
+
+    // °¢µµ
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platform Settings")
+    FVector RotationAxis; 
+
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Platform Settings")
+    bool bRotateLocal;
 };
