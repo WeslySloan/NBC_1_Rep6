@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "PlatformSpawner.h"
@@ -31,7 +31,7 @@ void APlatformSpawner::SpawnRandomPlatforms()
 
     for (int32 i = 0; i < NumToSpawn; ++i)
     {
-        // ·£´ý À§Ä¡ (½ºÆù ¹Ú½º ³»)
+        // ëžœë¤ ìœ„ì¹˜ (ìŠ¤í° ë°•ìŠ¤ ë‚´)
         FVector RandOffset = FVector(
             FMath::FRandRange(-SpawnBoxExtent.X, SpawnBoxExtent.X),
             FMath::FRandRange(-SpawnBoxExtent.Y, SpawnBoxExtent.Y),
@@ -52,7 +52,7 @@ void APlatformSpawner::SpawnRandomPlatforms()
                 {
                     RP->RotationSpeed = FMath::FRandRange(RotationSpeedRange.X, RotationSpeedRange.Y);
 
-                    // ·£´ý Ãà
+                    // ëžœë¤ ì¶•
                     /*FVector Axis = UKismetMathLibrary::RandomUnitVector();
                     RP->RotationAxis = Axis;*/
                     RP->bRotateLocal = (FMath::RandBool());
@@ -71,7 +71,7 @@ void APlatformSpawner::SpawnRandomPlatforms()
                     MP->MoveSpeed = FMath::FRandRange(MoveSpeedRange.X, MoveSpeedRange.Y);
                     MP->MaxRange = FMath::FRandRange(MaxRangeRange.X, MaxRangeRange.Y);
 
-                    // ·£´ý ¹æÇâ (XZ Æò¸é À§·Î¸¸)
+                    // ëžœë¤ ë°©í–¥ (XZ í‰ë©´ ìœ„ë¡œë§Œ)
                     FVector RandDir = FVector(FMath::FRandRange(-1.f, 1.f), FMath::FRandRange(-1.f, 1.f), 0.f).GetSafeNormal();
                     MP->MoveAxis = RandDir;
                     MP->bUseLocalSpace = false;
