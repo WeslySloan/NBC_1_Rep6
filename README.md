@@ -40,7 +40,9 @@
 ---
 
 ## 2025-09-23
- - PlatformSpawner / DisappearingPlatform 구현 / Mesh 및 Material
+ - PlatformSpawner / DisappearingPlatform 구현 
+ - Mesh 및 Material
+ - Light 수정
 
 ## 2025-09-22
  - 클래스 생성 및 프로젝트 셋업
