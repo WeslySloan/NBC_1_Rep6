@@ -39,5 +39,8 @@
 
 ---
 
+## 2025-09-23
+ - PlatformSpawner / DisappearingPlatform 구현 / Mesh 및 Material
+
 ## 2025-09-22
  - 클래스 생성 및 프로젝트 셋업
