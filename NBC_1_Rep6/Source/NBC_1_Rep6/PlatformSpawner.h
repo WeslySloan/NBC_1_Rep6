@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -24,15 +24,14 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Settings")
     TSubclassOf<AActor> MovingPlatformClass;
 
-    // ½ºÆù °³¼ö
+    // ìŠ¤í° ê°œìˆ˜
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Settings", meta = (ClampMin = "0"))
     int32 NumToSpawn;
 
-    // ½ºÆù ¹üÀ§ (¹Ú½º ¹İÁö¸§)
+    // ìŠ¤í° ë²”ìœ„ 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Settings")
     FVector SpawnBoxExtent;
 
-    // ¼Ó¼º ¹üÀ§
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spawn Settings")
     FVector2D RotationSpeedRange; // x=min, y=max 
 
