@@ -80,6 +80,9 @@
 
 ---
 
+## 2025-09-24
+ - PlatformSpawner UTF-8 인코딩
+
 ## 2025-09-23
  - PlatformSpawner / DisappearingPlatform 구현 
  - Mesh 및 Material
